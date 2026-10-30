@@ -22,9 +22,9 @@ jobs:
 
       - uses: Homebrew/actions/setup-homebrew@main
 
-      - name: Tap this checkout
-        run: |
-          brew tap NaMan6122/tap "$GITHUB_WORKSPACE"
+      # setup-homebrew taps this checkout automatically (it is a tap repository).
+      - name: Show the tap
+        run: brew tap-info NaMan6122/tap
 
       - name: Audit
         run: brew audit --strict NaMan6122/tap/anvaya
