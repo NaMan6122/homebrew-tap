@@ -24,7 +24,6 @@ TEMPLATE = """\
 class Anvaya < Formula
   desc "Agentic terminal coding assistant, bundled with its Mind memory daemon"
   homepage "https://anvayahq.com"
-  version "{version}"
 
   on_macos do
     depends_on arch: :arm64
@@ -103,7 +102,8 @@ def main():
     if len(versions) != 1:
         sys.exit(f"bundles disagree on version: {sorted(versions)}")
 
-    text = TEMPLATE.format(channel=args.channel, version=versions.pop(), **ctx)
+    versions.pop()  # all bundles agree; Homebrew reads the version from the URL
+    text = TEMPLATE.format(channel=args.channel, **ctx)
     out = os.path.abspath(args.out)
     old = open(out).read() if os.path.exists(out) else ""
     if old == text:

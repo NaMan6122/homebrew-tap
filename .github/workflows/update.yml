@@ -24,7 +24,7 @@ jobs:
           if git diff --quiet; then
             echo "up to date"; exit 0
           fi
-          version="$(sed -n 's/^  version "\(.*\)"/\1/p' Formula/anvaya.rb)"
+          version="$(grep -o 'download/v[^/]*' Formula/anvaya.rb | head -1 | sed 's#download/v##')"
           git config user.name "Anvaya Release"
           git config user.email "release@anvayahq.com"
           git add Formula/anvaya.rb

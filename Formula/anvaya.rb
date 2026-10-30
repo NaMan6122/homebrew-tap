@@ -3,7 +3,6 @@
 class Anvaya < Formula
   desc "Agentic terminal coding assistant, bundled with its Mind memory daemon"
   homepage "https://anvayahq.com"
-  version "0.1.0-beta.1"
 
   on_macos do
     depends_on arch: :arm64
