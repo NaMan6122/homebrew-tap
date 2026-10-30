@@ -1,0 +1,32 @@
+name: Update formula
+
+# Follows the release channel. A release is only visible here once the Anvaya
+# publish stage has made it public and verified its checksums.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate from the channel
+        run: scripts/update-formula.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet; then
+            echo "up to date"; exit 0
+          fi
+          version="$(sed -n 's/^  version "\(.*\)"/\1/p' Formula/anvaya.rb)"
+          git config user.name "Anvaya Release"
+          git config user.email "release@anvayahq.com"
+          git add Formula/anvaya.rb
+          git commit -m "anvaya ${version}"
+          git push

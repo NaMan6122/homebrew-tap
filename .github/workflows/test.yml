@@ -1,0 +1,49 @@
+name: Test formula
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  brew:
+    name: brew install (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, ubuntu-24.04, ubuntu-24.04-arm]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Tap this checkout
+        run: |
+          brew tap NaMan6122/tap "$GITHUB_WORKSPACE"
+
+      - name: Audit
+        run: brew audit --strict NaMan6122/tap/anvaya
+
+      - name: Install
+        run: brew install --verbose NaMan6122/tap/anvaya
+
+      - name: Test
+        run: brew test NaMan6122/tap/anvaya
+
+      - name: Run through the Homebrew symlinks, off PATH
+        run: |
+          prefix="$(brew --prefix)"
+          env -i HOME="$HOME" PATH=/usr/bin:/bin "$prefix/bin/anv" --version
+          env -i HOME="$HOME" PATH=/usr/bin:/bin "$prefix/bin/mind-daemon" --version
+          # anv must be able to start the daemon it was installed with.
+          mkdir -p "$RUNNER_TEMP/proj" && cd "$RUNNER_TEMP/proj" && git init -q .
+          env -i HOME="$HOME" PATH=/usr/bin:/bin "$prefix/bin/anv" --project "$PWD" mind stats | head -5
+          pkill -f mind-daemon || true
+
+      - name: Uninstall
+        run: brew uninstall NaMan6122/tap/anvaya
