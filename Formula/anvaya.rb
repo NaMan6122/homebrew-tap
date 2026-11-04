@@ -7,19 +7,19 @@ class Anvaya < Formula
   on_macos do
     depends_on arch: :arm64
 
-    url "https://github.com/NaMan6122/Anvaya/releases/download/v0.1.0-beta.1/anvaya-0.1.0-beta.1-aarch64-apple-darwin.tar.gz"
-    sha256 "a939b90164b36a6340376697c224aa09ea007ad35ee7bb4fdc190b8e8fcbad6a"
+    url "https://github.com/NaMan6122/Anvaya/releases/download/v0.1.0-beta.2/anvaya-0.1.0-beta.2-aarch64-apple-darwin.tar.gz"
+    sha256 "ebea04b9796c288bd18c4b137b19507efeebc3b1214a0543dc04521ca12d5509"
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/NaMan6122/Anvaya/releases/download/v0.1.0-beta.1/anvaya-0.1.0-beta.1-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "f092075cf8340cade17630a19634fd54863afcb8c897e2901cb6ec93109e5d92"
+      url "https://github.com/NaMan6122/Anvaya/releases/download/v0.1.0-beta.2/anvaya-0.1.0-beta.2-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "3f2551daba2ee33351af01e58faf3a562a95684512acbd845577f1cd10178a47"
     end
 
     on_intel do
-      url "https://github.com/NaMan6122/Anvaya/releases/download/v0.1.0-beta.1/anvaya-0.1.0-beta.1-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "fbda2fbac2ead1629f57889c5bd37ad6b3fd7ca3af2c3f84d55338d9eee9dbff"
+      url "https://github.com/NaMan6122/Anvaya/releases/download/v0.1.0-beta.2/anvaya-0.1.0-beta.2-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "561f67e7117125309de28d09344d8d9e8e7148498dd25c5e74eacdbd35aa0588"
     end
   end
 
